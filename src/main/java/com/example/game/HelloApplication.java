@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -16,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,7 @@ public class HelloApplication extends Application {
     public static Stage pStage;
     public static Pane root = new Pane();
     public static MenuBar mb = new MenuBar();
-    public static Button smiley = new Button("reset");
+    public static Button smiley = new Button();
     public static Parent p;
     public static final int TILE_SIZE = 20;
     public static int x = 320;
@@ -38,9 +41,14 @@ public class HelloApplication extends Application {
     //Default difficulty is Intermediate with a 6.4% probability of selecting a bomb
     public static double difficulty = 0.16;
 
-    public static final Image SMILEY = new Image(new File("smiley.jpg").toURI().toString());
+
+
+    public static final Image SMILEY = new Image("com/example/game/smiley.png");
     public static final Image DEAD = new Image(new File("dead.jpg").toURI().toString());
     public static final Image MINE = new Image(new File("mine.jpg").toURI().toString());
+
+    public static ImageView view = new ImageView(SMILEY);
+
 
 
     public static void main(String[] args) {
@@ -141,7 +149,13 @@ public class HelloApplication extends Application {
         mb.getMenus().add(menu);
         mb.setMaxHeight(10);
 
-        //Button smiley = new Button("reset");
+        smiley.setPrefSize(25,30);
+
+        view.setFitWidth(20);
+        view.setFitHeight(20);
+        view.setPreserveRatio(true);
+        smiley.setGraphic(view);
+        //smiley.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         smiley.setOnMouseClicked(e -> reset());
     }
 
